@@ -83,6 +83,7 @@ include( "${CMAKE_SOURCE_DIR}/cmake/build_artifacts.cmake" )
 
 install( FILES "${INCLUDE_DIR}/${PROJECT_NAME}" DESTINATION "include" )
 install( FILES ${BUILD_ARTIFACTS} DESTINATION "include/corvusoft/${PROJECT_NAME}" )
-install( TARGETS ${TRGT}
+install (TARGETS ${TRGT}
+         ARCHIVE DESTINATION "library"
          LIBRARY DESTINATION "library"
-         ARCHIVE DESTINATION "library" COMPONENT library )
+         RUNTIME DESTINATION "bin")
