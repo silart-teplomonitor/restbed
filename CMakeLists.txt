@@ -40,16 +40,24 @@ if( MSYS )
 	set( LIBS "-lws2_32 -lwsock32" )
 endif()
 
+if ( CMAKE_BUILD_TYPE MATCHES Debug )
+	set( DBG_SUFFIX _d )
+else ( )
+	set( DBG_SUFFIX )
+endif ( )
+
+set( TRGT ${PROJECT_NAME}${DBG_SUFFIX} )
+
 include( "${CMAKE_SOURCE_DIR}/cmake/build_manifest.cmake" )
 
 include_directories( ${INCLUDE_DIR} )
 
-add_library( ${PROJECT_NAME} ${BUILD_MANIFEST} )
+add_library( ${TRGT} ${BUILD_MANIFEST} )
 
 if ( BUILD_SSL )
-    target_link_libraries( ${PROJECT_NAME} LINK_PRIVATE ${ssl_LIBRARY} ${crypto_LIBRARY} ${LIBS} )
+    target_link_libraries( ${TRGT} LINK_PRIVATE ${ssl_LIBRARY} ${crypto_LIBRARY} ${LIBS} )
 else ( )
-    target_link_libraries( ${PROJECT_NAME} ${LIBS} )
+    target_link_libraries( ${TRGT} ${LIBS} )
 endif ( )
 
 if ( BUILD_EXAMPLES )
@@ -75,6 +83,6 @@ include( "${CMAKE_SOURCE_DIR}/cmake/build_artifacts.cmake" )
 
 install( FILES "${INCLUDE_DIR}/${PROJECT_NAME}" DESTINATION "include" )
 install( FILES ${BUILD_ARTIFACTS} DESTINATION "include/corvusoft/${PROJECT_NAME}" )
-install( TARGETS ${PROJECT_NAME}
+install( TARGETS ${TRGT}
          LIBRARY DESTINATION "library"
          ARCHIVE DESTINATION "library" COMPONENT library )
