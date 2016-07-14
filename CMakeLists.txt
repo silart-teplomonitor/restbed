@@ -35,6 +35,11 @@ endif ( )
 #
 # Build
 #
+
+if( MSYS )
+	set( LIBS "-lws2_32 -lwsock32" )
+endif()
+
 include( "${CMAKE_SOURCE_DIR}/cmake/build_manifest.cmake" )
 
 include_directories( ${INCLUDE_DIR} )
@@ -42,9 +47,9 @@ include_directories( ${INCLUDE_DIR} )
 add_library( ${PROJECT_NAME} ${BUILD_MANIFEST} )
 
 if ( BUILD_SSL )
-    target_link_libraries( ${PROJECT_NAME} LINK_PRIVATE ${ssl_LIBRARY} ${crypto_LIBRARY} )
+    target_link_libraries( ${PROJECT_NAME} LINK_PRIVATE ${ssl_LIBRARY} ${crypto_LIBRARY} ${LIBS} )
 else ( )
-    target_link_libraries( ${PROJECT_NAME} )
+    target_link_libraries( ${PROJECT_NAME} ${LIBS} )
 endif ( )
 
 if ( BUILD_EXAMPLES )
