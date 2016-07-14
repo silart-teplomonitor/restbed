@@ -7,7 +7,7 @@ cmake_minimum_required( VERSION 2.8.10 )
 #
 # Configuration
 #
-set( EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_BINARY_DIR}/example/${CMAKE_BUILD_TYPE}" )
+set( EXECUTABLE_OUTPUT_PATH "${CMAKE_CURRENT_BINARY_DIR}/example/${TRGT_TYPE}/${CMAKE_BUILD_TYPE}" )
 
 #
 # Build
