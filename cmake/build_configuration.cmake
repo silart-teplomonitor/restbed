@@ -51,6 +51,16 @@ if( NOT WIN32 )
     endif ( )
 endif ( )
 
+if( MSYS )
+    if ( CMAKE_BUILD_TYPE MATCHES Debug )
+        set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0601 -std=c++11 -g -O0 -Wall -Wextra -Weffc++ -pedantic -Wno-unknown-pragmas" )
+    else ( )
+        string( REPLACE "-O3" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}" )
+        set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0601 -std=c++11 -O2 -Wall -Wextra -Weffc++ -pedantic -Wno-unknown-pragmas" )
+    endif ( )
+
+endif ( )
+
 if ( UNIX AND NOT APPLE )
     set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread" )
 endif ( )
