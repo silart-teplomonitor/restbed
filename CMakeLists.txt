@@ -46,6 +46,12 @@ else ( )
 	set( DBG_SUFFIX )
 endif ( )
 
+if ( BUILD_SHARED )
+	set( TRGT_TYPE Shared )
+else ( )
+	set( TRGT_TYPE Static )
+endif ( )
+
 set( TRGT ${PROJECT_NAME}${DBG_SUFFIX} )
 
 include( "${CMAKE_SOURCE_DIR}/cmake/build_manifest.cmake" )
